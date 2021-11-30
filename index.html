@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <title>Your Fingerprint</title>
+        <script type="text/javascript">
+            // function getColorDepth() {
+            //     return window.screen.colorDepth
+            // };
+            // function getCpuClass() {
+            //     return navigator.cpuClass
+            // };
+
+            function getColorGamut() {
+                // rec2020 includes p3 and p3 includes srgb
+                for (const gamut of ['rec2020', 'p3', 'srgb']){
+                    if (matchMedia(`(color-gamut: ${gamut})`).matches) {
+                      return gamut
+                    }
+                }
+                return undefined
+            };
+
+            function GetColorGamput() {
+                var output = document.getElementById ("outputCG");
+                output.innerHTML = "Information about Color Gamut " + getColorGamut();
+            };
+
+            function GetColorDepth() {
+                var output = document.getElementById ("outputCD");
+                output.innerHTML = "Information about Color Depth " + window.screen.colorDepth;
+            };
+
+            function GetCPU () {
+                var output = document.getElementById ("outputCPU");
+                output.innerHTML = "Information about the OS and CPU: " + navigator.oscpu;
+                output.innerHTML += "<br />The class of CPU: " + navigator.cpuClass;
+                output.innerHTML += "<br />System platform: " + navigator.platform;
+            }
+
+            const ContrastPreference = {
+                "Less": -1,
+                "None": 0,
+                "More": 1,
+                // "Max" can be added in future
+                "ForcedColors": 10,
+            };
+
+            function getContrastPreference() {
+                if (doesMatch('no-preference')) {
+                    return ContrastPreference.None
+                }
+                if (doesMatch('high') || doesMatch('more')) {
+                    return ContrastPreference.More
+                }
+                if (doesMatch('low') || doesMatch('less')) {
+                    return ContrastPreference.Less
+                }
+                if (doesMatch('forced')) {
+                    return ContrastPreference.ForcedColors
+                }
+                return undefined
+            }
+
+            function doesMatch(value) {
+                return matchMedia(`(prefers-contrast: ${value})`).matches
+            }
+
+            function GetConstrastPreference () {
+                var output = document.getElementById ("outputCP");
+                output.innerHTML = "Information about Constrast Preference " + getContrastPreference();
+            }
+
+            function GetCookies(){
+                var output = document.getElementById ("outputCookies");
+                const d = document
+                try {
+                    // Create cookie
+                    d.cookie = 'cookietest=1; SameSite=Strict;'
+                    const result = d.cookie.indexOf('cookietest=') !== -1
+                    // Delete cookie
+                    d.cookie = 'cookietest=1; SameSite=Strict; expires=Thu, 01-Jan-1970 00:00:01 GMT'
+                    output.innerHTML = "Cookies Enabled";
+                } catch (e) {
+                    output.innerHTML = "Cookies not enabled"
+                }
+            }
+
+        </script>
+    </head>
+    <body onload="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies();">
+        <div class="header">
+            <h1>Your Fingerprinted Information</h1>
+        </div>
+
+        <div class="container">
+            <!-- Doens't work on firefox -->
+            <div>
+                <h2>CPU and OS</h2>
+                <hr>
+                <div id="outputCPU">[Insert CPU Class Here]</div>
+                
+            </div>
+
+            <div>
+                <h2>Color Depth</h2>
+                <hr>
+                <div id="outputCD">[Insert Color Depth Here]</div>
+                
+            </div>
+
+            <div>
+                <h2>Color Gamut</h2>
+                <hr>
+                <div id="outputCG">[Insert Color Gamut Here]</div>
+            </div>
+
+            <div>
+                <h2>Contrast Preference</h2>
+                <hr>
+                <div id="outputCP">[Insert Contrast Preference Here]</div>
+            </div>
+            <div>
+                <h2>Cookies Enabled</h2>
+                <hr>
+                <div id="outputCookies">[Insert Cookies Enabled Here]</div>
+            </div>
+
+        </div>
+    </body>
+</html>
