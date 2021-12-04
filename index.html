@@ -87,9 +87,148 @@
                 }
             }
 
+            function GetDeviceMemory(){
+                var output = document.getElementById ("outputDM");
+                output.innerHTML = "Information about Device Memory " + navigator.deviceMemory;
+            };
+
+            function doesColorMatch(value) {
+                return matchMedia(`(forced-colors: ${value})`).matches
+            }
+
+            function GetForcedColors(){
+                var output = document.getElementById ("outputFC");
+                if (doesColorMatch("active")){
+                    output.innerHTML = "Information about Forced Colors: true";
+                }
+                else if (doesColorMatch("none")){
+                    output.innerHTML = "Information about Forced Colors: false";
+                }
+                else{
+                    output.innerHTML = "Information about Forced Colors: undefined";
+                }
+            };
+
+            function GetHardwareConcnurrency(){
+                var output = document.getElementById ("outputHC");
+                output.innerHTML = "Information about Hardware Concurrency " + navigator.hardwareConcurrency;
+            };
+
+            function doesHDRMatch(value) {
+                return matchMedia(`(dynamic-range: ${value})`).matches
+            };
+
+            function GetHDR(){
+                var output = document.getElementById ("outputHDR");
+                if (doesColorMatch("high")){
+                    output.innerHTML = "Information about HDR: true";
+                }
+                else if (doesColorMatch("standard")){
+                    output.innerHTML = "Information about HDR: false";
+                }
+                else{
+                    output.innerHTML = "Information about FHDR: undefined";
+                }
+            };
+
+            function doesInvertedMatch(value) {
+                return matchMedia(`(inverted-colors: ${value})`).matches
+            };
+
+            function GetInvertedColors(){
+                var output = document.getElementById ("outputInvertedC");
+                if (doesColorMatch("inverted")){
+                    output.innerHTML = "Information about Inverted Colors: true";
+                }
+                else if (doesColorMatch("none")){
+                    output.innerHTML = "Information about Inverted Colors: false";
+                }
+                else{
+                    output.innerHTML = "Information about Inverted Colors: undefined";
+                }
+            };
+
+            function GetLanguages(){
+                var output = document.getElementById ("outputLanguages");
+                output.innerHTML = "Language: " + navigator.language + ", userLanguage: " + navigator.userLanguage + ", browserLanguage: " + navigator.browserLanguage + ", systemLanguage: " + navigator.systemLanguage;
+            };
+
+            function GetLocalStorage(){
+                var output = document.getElementById ("outputLocalStorage");
+                try {
+                    output.innerHTML = "Local storage: " + !!window.localStorage
+                } catch (e) {
+                    /* SecurityError when referencing it means it exists */
+                    output.innerHTML = "Local Storage: True";
+                }
+            };
+
+            function getMonochromeDepth(){
+                var output = document.getElementById ("outputMonochrome");
+                if (!matchMedia('(min-monochrome: 0)').matches) {
+                    // The media feature isn't supported by the browser
+                    output.innerHTML = "Monocrhome: Undefined";
+                    return;
+                }
+
+                // A variation of binary search algorithm can be used here.
+                // But since expected values are very small (≤10), there is no sense in adding the complexity.
+                for (let i = 0; i <= 100; ++i) {
+                    if (matchMedia(`(max-monochrome: ${i})`).matches) {
+                        output.innerHTML = "Monochrome: " + i;
+                        return;
+                    }
+                }
+
+                output.innerHTML = "Monochrome: Too high";
+                return;
+            };
+
+            function getOpenDatabases(){
+                var output = document.getElementById ("outputOpenDB");
+                output.innerHTML = "Open Databases: " + !!window.openDatabase
+            };
+
+            function getPlatform(){
+                var output = document.getElementById ("outputPlatform");
+                const { platform } = navigator
+                output.innerHTML = "Platform: " + platform
+            };
+
+            function getMotionReduced(){
+                var output = document.getElementById ("outputMotionR");
+                if (matchMedia(`(prefers-reduced-motion: reduce`).matches){
+                    output.innerHTML = "Motion Reduce: True";
+                }
+                else if (matchMedia(`(prefers-reduced-motion: no-preference`).matches){
+                    output.innerHTML = "Motion Reduce: False";
+                }
+                else{
+                    output.innerHTML = "Motion Reduce: Undefined"
+                }
+            };
+
+            function GetSessionStorage(){
+                var output = document.getElementById ("outputSessionS");
+                try {
+                    output.innerHTML = "Session storage: " + !!window.sessionStorage
+                } catch (e) {
+                    /* SecurityError when referencing it means it exists */
+                    output.innerHTML = "Session Storage: True";
+                }
+            };
+
+            function getVendor(){
+                var output = document.getElementById ("outputVendor");
+                output.innerHTML = "Vendor: " + navigator.vendor;
+            };
+
+
+
+
         </script>
     </head>
-    <body onload="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies();">
+    <body onload="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies(); GetDeviceMemory(); GetForcedColors(); GetHDR(); GetHardwareConcnurrency(); GetInvertedColors(); GetLanguages(); GetLocalStorage(); getMonochromeDepth();getOpenDatabases();getPlatform();getMotionReduced(); GetSessionStorage();getVendor();">
         <div class="header">
             <h1>Your Fingerprinted Information</h1>
         </div>
@@ -126,6 +265,72 @@
                 <hr>
                 <div id="outputCookies">[Insert Cookies Enabled Here]</div>
             </div>
+            <div>
+                <h2>Device Memory</h2>
+                <hr>
+                <div id="outputDM">[Insert Device Memory Here]</div>
+            </div>
+            <div>
+                <h2>Forced Colors</h2>
+                <hr>
+                <div id="outputFC">[Insert Forced Colors Here]</div>
+            </div>
+            <div>
+                <h2>Hardware Concurrency</h2>
+                <hr>
+                <div id="outputHC">[Insert Hardware Concurrency Here]</div>
+            </div>
+            <div>
+                <h2>HDR</h2>
+                <hr>
+                <div id="outputHDR">[Insert HDR Here]</div>
+            </div>
+            <div>
+                <h2>Inverted Colors</h2>
+                <hr>
+                <div id="outputInvertedC">[Insert Inverted Colors Here]</div>
+            </div>
+            <div>
+                <h2>Languages</h2>
+                <hr>
+                <div id="outputLanguages">[Insert Languages Here]</div>
+            </div>
+            <div>
+                <h2>Local Storage</h2>
+                <hr>
+                <div id="outputLocalStorage">[Insert Local Storage Here]</div>
+            </div>
+            <div>
+                <h2>Monochrome</h2>
+                <hr>
+                <div id="outputMonochrome">[Insert Monochrome Here]</div>
+            </div>
+            <div>
+                <h2>Open Database</h2>
+                <hr>
+                <div id="outputOpenDB">[Insert OpenDatabase Here]</div>
+            </div>
+            <div>
+                <h2>Platform</h2>
+                <hr>
+                <div id="outputPlatform">[Insert Platform Here]</div>
+            </div>
+            <div>
+                <h2>Motion Reduce</h2>
+                <hr>
+                <div id="outputMotionR">[Insert Motion Reduce Here]</div>
+            </div>
+            <div>
+                <h2>Session Storage</h2>
+                <hr>
+                <div id="outputSessionS">[Insert Session Storage Here]</div>
+            </div>
+            <div>
+                <h2>Vendor</h2>
+                <hr>
+                <div id="outputVendor">[Insert Vendor Here]</div>
+            </div>
+
 
         </div>
     </body>
