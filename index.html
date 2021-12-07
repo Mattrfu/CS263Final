@@ -120,10 +120,10 @@
 
             function GetHDR(){
                 var output = document.getElementById ("outputHDR");
-                if (doesColorMatch("high")){
+                if (doesHDRMatch("high")){
                     output.innerHTML = "Information about HDR: true";
                 }
-                else if (doesColorMatch("standard")){
+                else if (doesHDRMatch("standard")){
                     output.innerHTML = "Information about HDR: false";
                 }
                 else{
@@ -137,10 +137,10 @@
 
             function GetInvertedColors(){
                 var output = document.getElementById ("outputInvertedC");
-                if (doesColorMatch("inverted")){
+                if (doesInvertedMatch("inverted")){
                     output.innerHTML = "Information about Inverted Colors: true";
                 }
-                else if (doesColorMatch("none")){
+                else if (doesInvertedMatch("none")){
                     output.innerHTML = "Information about Inverted Colors: false";
                 }
                 else{
