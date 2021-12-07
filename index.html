@@ -223,12 +223,17 @@
                 output.innerHTML = "Vendor: " + navigator.vendor;
             };
 
+            function getScreenWidth(){
+                var output = document.getElementById ("outputSW");
+                output.innerHTML = "Screen Width: " + screen.width;
+            };
+
 
 
 
         </script>
     </head>
-    <body onload="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies(); GetDeviceMemory(); GetForcedColors(); GetHDR(); GetHardwareConcnurrency(); GetInvertedColors(); GetLanguages(); GetLocalStorage(); getMonochromeDepth();getOpenDatabases();getPlatform();getMotionReduced(); GetSessionStorage();getVendor();">
+    <body onload="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies(); GetDeviceMemory(); GetForcedColors(); GetHDR(); GetHardwareConcnurrency(); GetInvertedColors(); GetLanguages(); GetLocalStorage(); getMonochromeDepth();getOpenDatabases();getPlatform();getMotionReduced(); GetSessionStorage();getVendor();getScreenWidth();" onkeypress="GetCPU (); GetColorDepth (); GetColorGamput(); GetConstrastPreference (); GetCookies(); GetDeviceMemory(); GetForcedColors(); GetHDR(); GetHardwareConcnurrency(); GetInvertedColors(); GetLanguages(); GetLocalStorage(); getMonochromeDepth();getOpenDatabases();getPlatform();getMotionReduced(); GetSessionStorage();getVendor();getScreenWidth();">
         <div class="header">
             <h1>Your Fingerprinted Information</h1>
         </div>
@@ -329,6 +334,11 @@
                 <h2>Vendor</h2>
                 <hr>
                 <div id="outputVendor">[Insert Vendor Here]</div>
+            </div>
+            <div>
+                <h2>Vendor</h2>
+                <hr>
+                <div id="outputSW">[Insert Scren Width Here]</div>
             </div>
             <div>
                 <h2>Test</h2>
