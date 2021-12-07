@@ -57,8 +57,10 @@ function enter(node){
 
   var toeval = 'curblock.push(toadd);';
   // if inside a function definition, add line before return statement
-  if (curblock[curblock.length - 1].type === 'ReturnStatement'){
+  if (curblock.length) {
+    if (curblock[curblock.length - 1].type === 'ReturnStatement'){
     toeval = 'curblock.splice(curblock.length - 1, 0, toadd);'
+    }
   }
 
   if (node.type === 'Identifier'){
