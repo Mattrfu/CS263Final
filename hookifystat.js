@@ -10,7 +10,6 @@ if (!obj){
     "concurrency" : 0,
     "hdr" : 0,
     "inverted_colors" : 0,
-    "color_depth" : 0
   };
 }
 //
